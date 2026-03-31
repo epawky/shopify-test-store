@@ -1,0 +1,201 @@
+{%- comment -%}
+  AUREA PARIS — Product Card
+  @param {product} product
+  @param {boolean} [eager] - Use eager loading for above-fold images
+{%- endcomment -%}
+
+{% liquid
+  assign loading_strategy = eager | default: false
+  assign card_class = 'product-card'
+  if product.type == 'Moss & Cedar'
+    assign card_class = card_class | append: ' card--sage'
+  endif
+%}
+
+<article class="{{ card_class }}">
+  <a href="{{ product.url }}" class="product-card__link" aria-label="{{ product.title }}">
+    <div class="product-card__media">
+      {% if product.featured_image %}
+        {{ product.featured_image | image_url: width: 800 | image_tag:
+          loading: loading_strategy | ternary: 'eager', 'lazy',
+          class: 'product-card__image',
+          sizes: '(min-width: 768px) 33vw, 100vw',
+          widths: '400, 800, 1200'
+        }}
+      {% else %}
+        <div class="product-card__placeholder">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C5A96B" stroke-width="1">
+            <circle cx="12" cy="12" r="11"/>
+          </svg>
+        </div>
+      {% endif %}
+
+      {% if product.metafields.custom.badge != blank %}
+        <span class="product-card__badge">{{ product.metafields.custom.badge }}</span>
+      {% endif %}
+
+      <div class="product-card__atc">Add to Cart</div>
+    </div>
+
+    <div class="product-card__info">
+      {% if product.type != blank %}
+        <p class="product-card__type">{{ product.type }}</p>
+      {% endif %}
+      <h3 class="product-card__title">{{ product.title }}</h3>
+      {% if product.metafields.custom.scent_notes != blank %}
+        <p class="product-card__notes">{{ product.metafields.custom.scent_notes }}</p>
+      {% endif %}
+      <div class="product-card__footer">
+        <span class="product-card__price">{{ product.price | money }}</span>
+        {% if product.variants.size > 1 %}
+          <span class="product-card__variants">
+            {% for variant in product.variants %}
+              {{ variant.title }}{% unless forloop.last %} · {% endunless %}
+            {% endfor %}
+          </span>
+        {% endif %}
+      </div>
+    </div>
+  </a>
+</article>
+
+{% stylesheet %}
+  /* ── Product Card ── */
+  .product-card {
+    background: #242B26;
+    border-radius: 0;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  .product-card:hover { background: #2a3229; }
+
+  .product-card__link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+
+  /* ── Media ── */
+  .product-card__media {
+    aspect-ratio: 3/4;
+    background: #2C3530;
+    overflow: hidden;
+    position: relative;
+  }
+  .product-card__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.7s ease;
+  }
+  .product-card:hover .product-card__image {
+    transform: scale(1.03);
+  }
+  .product-card__placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #2C3530;
+  }
+
+  /* ── Badge ── */
+  .product-card__badge {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    z-index: 3;
+    background: #C5A96B;
+    color: #111714;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 9px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    padding: 4px 10px;
+    border-radius: 0;
+  }
+
+  /* ── Add to Cart Bar ── */
+  .product-card__atc {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 4;
+    background: #C5A96B;
+    color: #111714;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 9px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    padding: 13px;
+    text-align: center;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+  }
+  .product-card:hover .product-card__atc,
+  .product-card:focus-within .product-card__atc {
+    transform: translateY(0);
+  }
+
+  /* ── Info ── */
+  .product-card__info {
+    padding: 20px 22px 24px;
+    border-top: 1px solid rgba(197, 169, 107, 0.12);
+  }
+  .product-card__type {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 9px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: #7B9E87;
+    margin-bottom: 6px;
+  }
+  .product-card__title {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 22px;
+    font-weight: 300;
+    color: #F5F0E8;
+    margin-bottom: 8px;
+  }
+  .product-card__notes {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 13px;
+    font-style: italic;
+    font-weight: 300;
+    color: rgba(245, 240, 232, 0.45);
+    line-height: 1.6;
+    margin-bottom: 14px;
+  }
+  .product-card__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  .product-card__price {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: #C5A96B;
+  }
+  .product-card__variants {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 10px;
+    color: rgba(245, 240, 232, 0.35);
+  }
+
+  /* ── Sage variant ── */
+  .card--sage .product-card__type {
+    color: rgba(123, 158, 135, 0.9);
+  }
+  .card--sage .product-card__badge {
+    background: #7B9E87;
+    color: #1A1F1C;
+  }
+{% endstylesheet %}

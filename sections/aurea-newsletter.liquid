@@ -1,0 +1,155 @@
+{%- comment -%} AUREA PARIS — Newsletter Section {%- endcomment -%}
+
+<section class="aurea-newsletter full-width">
+  <div class="aurea-newsletter__inner">
+    <div class="aurea-newsletter__rule"></div>
+    <h2 class="aurea-newsletter__heading">{{ section.settings.heading }}</h2>
+    <p class="aurea-newsletter__body">{{ section.settings.body }}</p>
+
+    {% form 'customer', id: 'aurea-newsletter-form' %}
+      <div class="aurea-newsletter__form">
+        <input
+          type="email"
+          name="contact[email]"
+          placeholder="{{ section.settings.placeholder }}"
+          required
+          class="aurea-newsletter__input"
+          aria-label="Email address"
+        >
+        <input type="hidden" name="contact[tags]" value="newsletter">
+        <button type="submit" class="aurea-btn aurea-btn--primary aurea-newsletter__submit">
+          {{ section.settings.button_text }}
+        </button>
+      </div>
+    {% endform %}
+
+    <p class="aurea-newsletter__fine-print">{{ section.settings.fine_print }}</p>
+  </div>
+</section>
+
+{% stylesheet %}
+  .aurea-newsletter {
+    background: #242B26;
+    border-top: 1px solid rgba(197, 169, 107, 0.12);
+    border-bottom: 1px solid rgba(197, 169, 107, 0.12);
+    padding: 96px 64px;
+  }
+  .aurea-newsletter__inner {
+    max-width: 520px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .aurea-newsletter__rule {
+    width: 40px;
+    height: 1px;
+    background: #C5A96B;
+    margin: 0 auto 28px;
+  }
+  .aurea-newsletter__heading {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 36px;
+    font-weight: 300;
+    font-style: italic;
+    color: #F5F0E8;
+    letter-spacing: 0.04em;
+    margin-bottom: 20px;
+  }
+  .aurea-newsletter__body {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    color: rgba(245, 240, 232, 0.45);
+    line-height: 1.85;
+    margin-bottom: 36px;
+  }
+  .aurea-newsletter__form {
+    display: flex;
+    gap: 0;
+    margin-bottom: 20px;
+  }
+  .aurea-newsletter__input {
+    flex: 1;
+    background: #1A1F1C;
+    border: 1px solid rgba(197, 169, 107, 0.2);
+    border-right: none;
+    color: #F5F0E8;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 12px;
+    font-weight: 300;
+    padding: 14px 20px;
+    border-radius: 0;
+  }
+  .aurea-newsletter__input::placeholder {
+    color: rgba(245, 240, 232, 0.25);
+    letter-spacing: 0.06em;
+  }
+  .aurea-newsletter__input:focus {
+    outline: none;
+    border-color: rgba(197, 169, 107, 0.5);
+  }
+  .aurea-newsletter__submit {
+    flex-shrink: 0;
+  }
+  .aurea-newsletter__fine-print {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 11px;
+    font-weight: 300;
+    color: rgba(245, 240, 232, 0.25);
+    line-height: 1.6;
+  }
+
+  @media (max-width: 768px) {
+    .aurea-newsletter { padding: 64px 24px; }
+    .aurea-newsletter__form {
+      flex-direction: column;
+      gap: 12px;
+    }
+    .aurea-newsletter__input {
+      border-right: 1px solid rgba(197, 169, 107, 0.2);
+    }
+    .aurea-newsletter__heading { font-size: 28px; }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Aurea Newsletter",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Slow beauty takes time."
+    },
+    {
+      "type": "textarea",
+      "id": "body",
+      "label": "Body",
+      "default": "Join the Aurea circle for provenance notes, limited releases, and early access to seasonal compositions. No frequency promises. Only quality ones."
+    },
+    {
+      "type": "text",
+      "id": "placeholder",
+      "label": "Placeholder",
+      "default": "Your email address"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "Subscribe"
+    },
+    {
+      "type": "textarea",
+      "id": "fine_print",
+      "label": "Fine print",
+      "default": "We write when we have something worth saying. Unsubscribe anytime."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Aurea Newsletter"
+    }
+  ]
+}
+{% endschema %}

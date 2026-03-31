@@ -1,12 +1,55 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
-  "current": {}
+  "current": {
+    "color_schemes": {
+      "scheme_1": {
+        "settings": {
+          "background": "#1A1F1C",
+          "background_gradient": "",
+          "text": "#F5F0E8",
+          "button": "#C5A96B",
+          "button_label": "#111714",
+          "secondary_button_label": "#C5A96B",
+          "shadow": "#1A1F1C"
+        }
+      },
+      "scheme_2": {
+        "settings": {
+          "background": "#242B26",
+          "text": "#F5F0E8",
+          "button": "#C5A96B",
+          "button_label": "#111714",
+          "secondary_button_label": "#C5A96B",
+          "shadow": "#242B26"
+        }
+      }
+    },
+    "colors_accent_1": "#C5A96B",
+    "colors_accent_2": "#7B9E87",
+    "colors_text": "#F5F0E8",
+    "colors_background_1": "#1A1F1C",
+    "colors_background_2": "#242B26",
+    "colors_solid_button_labels": "#111714",
+    "colors_outline_button_labels": "#C5A96B",
+    "type_body_font": "dm_sans_n3",
+    "type_body_font_size": 14,
+    "type_header_font": "cormorant_garamond_n3",
+    "type_header_font_size_scale": 100,
+    "buttons_radius": 0,
+    "inputs_radius": 0,
+    "variant_pills_radius": 0,
+    "sections": {
+      "aurea-hero": {
+        "type": "aurea-hero",
+        "settings": {
+          "hero_image": "shopify://shop_images/elizapawky_no_bright_colors_no_white_backgrounds_no_product_t_5c986b43-ced7-4aee-b12d-40a00fce956a_3.png"
+        }
+      },
+      "aurea-story": {
+        "type": "aurea-story",
+        "settings": {
+          "story_image": "shopify://shop_images/elizapawky_a_woman_perfumer_in_her_50s_silver-streaked_dark_h_7f4a4ab4-309e-4965-8d63-a2aaac1927bc_3.png"
+        }
+      }
+    }
+  }
 }

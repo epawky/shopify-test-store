@@ -1,0 +1,142 @@
+{%- comment -%} AUREA PARIS — Metrics Band {%- endcomment -%}
+
+<section class="aurea-metrics full-width">
+  <div class="aurea-metrics__inner">
+    <div class="aurea-metrics__item">
+      <span class="aurea-metrics__label">{{ section.settings.label_1 }}</span>
+      <span class="aurea-metrics__value">{{ section.settings.value_1 }}</span>
+    </div>
+    <div class="aurea-metrics__divider"></div>
+    <div class="aurea-metrics__item">
+      <span class="aurea-metrics__label">{{ section.settings.label_2 }}</span>
+      <span class="aurea-metrics__value">{{ section.settings.value_2 }}</span>
+    </div>
+    <div class="aurea-metrics__divider"></div>
+    <div class="aurea-metrics__item">
+      <span class="aurea-metrics__label">{{ section.settings.label_3 }}</span>
+      <span class="aurea-metrics__value">{{ section.settings.value_3 }}</span>
+    </div>
+    <div class="aurea-metrics__divider"></div>
+    <div class="aurea-metrics__item">
+      <span class="aurea-metrics__label">{{ section.settings.label_4 }}</span>
+      <span class="aurea-metrics__value">{{ section.settings.value_4 }}</span>
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .aurea-metrics {
+    background: #242B26;
+    border-top: 1px solid rgba(197, 169, 107, 0.12);
+    border-bottom: 1px solid rgba(197, 169, 107, 0.12);
+    padding: 40px 64px;
+  }
+  .aurea-metrics__inner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 48px;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+  .aurea-metrics__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    text-align: center;
+  }
+  .aurea-metrics__label {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 9px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: #C5A96B;
+  }
+  .aurea-metrics__value {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 18px;
+    font-weight: 300;
+    font-style: italic;
+    color: #F5F0E8;
+    letter-spacing: 0.02em;
+  }
+  .aurea-metrics__divider {
+    width: 1px;
+    height: 36px;
+    background: rgba(197, 169, 107, 0.18);
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 768px) {
+    .aurea-metrics { padding: 32px 24px; }
+    .aurea-metrics__inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+    }
+    .aurea-metrics__divider { display: none; }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Aurea Metrics",
+  "settings": [
+    {
+      "type": "text",
+      "id": "label_1",
+      "label": "Label 1",
+      "default": "Founded"
+    },
+    {
+      "type": "text",
+      "id": "value_1",
+      "label": "Value 1",
+      "default": "Paris, 2009"
+    },
+    {
+      "type": "text",
+      "id": "label_2",
+      "label": "Label 2",
+      "default": "Ingredients"
+    },
+    {
+      "type": "text",
+      "id": "value_2",
+      "label": "Value 2",
+      "default": "Rare & Traceable"
+    },
+    {
+      "type": "text",
+      "id": "label_3",
+      "label": "Label 3",
+      "default": "Approach"
+    },
+    {
+      "type": "text",
+      "id": "value_3",
+      "label": "Value 3",
+      "default": "Slow Perfumery"
+    },
+    {
+      "type": "text",
+      "id": "label_4",
+      "label": "Label 4",
+      "default": "Packaging"
+    },
+    {
+      "type": "text",
+      "id": "value_4",
+      "label": "Value 4",
+      "default": "Carbon Neutral"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Aurea Metrics"
+    }
+  ]
+}
+{% endschema %}

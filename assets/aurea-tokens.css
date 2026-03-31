@@ -1,0 +1,69 @@
+/* ============================================
+   AUREA PARIS — Design Token System
+   ============================================ */
+
+:root {
+  /* ── BACKGROUNDS ── */
+  --aurea-bg:          #1A1F1C;
+  --aurea-surface:     #242B26;
+  --aurea-deep:        #111714;
+  --aurea-raised:      #2C3530;
+
+  /* ── TEXT ── */
+  --aurea-text:        #F5F0E8;
+  --aurea-muted:       rgba(245, 240, 232, 0.45);
+  --aurea-hint:        rgba(245, 240, 232, 0.25);
+
+  /* ── ACCENT — GOLD ── */
+  --aurea-gold:        #C5A96B;
+  --aurea-gold-light:  #D4B97C;
+  --aurea-gold-dim:    rgba(197, 169, 107, 0.18);
+  --aurea-gold-glow:   rgba(197, 169, 107, 0.08);
+
+  /* ── ACCENT — BOTANICAL ── */
+  --aurea-sage:        #7B9E87;
+  --aurea-moss:        #4A5548;
+
+  /* ── BORDERS ── */
+  --aurea-border:      rgba(197, 169, 107, 0.18);
+  --aurea-border-soft: rgba(197, 169, 107, 0.10);
+  --aurea-border-bold: rgba(197, 169, 107, 0.40);
+
+  /* ── TYPOGRAPHY ── */
+  --aurea-serif:       'Cormorant Garamond', Georgia, serif;
+  --aurea-sans:        'DM Sans', system-ui, sans-serif;
+
+  /* ── FONT WEIGHTS ── */
+  --aurea-weight-thin:    300;
+  --aurea-weight-regular: 400;
+
+  /* ── LETTER SPACING ── */
+  --aurea-tracking-display: 0.04em;
+  --aurea-tracking-label:   0.13em;
+  --aurea-tracking-wide:    0.18em;
+
+  /* ── SPACING SCALE ── */
+  --aurea-space-xs:  8px;
+  --aurea-space-sm:  16px;
+  --aurea-space-md:  32px;
+  --aurea-space-lg:  64px;
+  --aurea-space-xl:  96px;
+
+  /* ── TRANSITIONS ── */
+  --aurea-transition-fast:   0.2s ease;
+  --aurea-transition-mid:    0.3s ease;
+  --aurea-transition-slow:   0.7s ease;
+
+  /* ── SHOPIFY THEME OVERRIDES ── */
+  --color-background:          #1A1F1C;
+  --color-foreground:          245, 240, 232;
+  --color-base-background-1:   #1A1F1C;
+  --color-base-background-2:   #242B26;
+  --color-base-accent-1:       197, 169, 107;
+  --color-base-accent-2:       123, 158, 135;
+  --color-base-text:           245, 240, 232;
+  --color-base-solid-button-labels: 26, 31, 28;
+  --color-base-outline-button-labels: 197, 169, 107;
+  --buttons-radius:            0;
+  --inputs-radius:             0;
+}

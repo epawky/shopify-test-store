@@ -1,0 +1,54 @@
+{
+  "sections": {
+    "main": {
+      "type": "page",
+      "settings": {}
+    },
+    "provenance-ingredients": {
+      "type": "aurea-provenance",
+      "settings": {
+        "overline": "Provenance",
+        "heading": "What we source, and where."
+      },
+      "blocks": {
+        "ingredient-1": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Haitian Vetiver",
+            "origin": "Artibonite Valley, Haiti",
+            "body": "Roots hand-harvested at 18 months, steam-distilled on-site. Darker, smokier, more complex than alternatives. Our primary anchor for woody compositions."
+          }
+        },
+        "ingredient-2": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Omani Frankincense",
+            "origin": "Dhofar Region, Oman",
+            "body": "Boswellia sacra resin, wild-harvested by Bedouin families. The finest grade — milky, sacred, with a lift of citrus that lesser resins cannot offer."
+          }
+        },
+        "ingredient-3": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Atlas Cedar",
+            "origin": "Azrou Forest, Morocco",
+            "body": "Cold-pressed from sustainably managed Cedrus atlantica. Warm, dry, and pencil-shaving clean. A foundation note that carries for hours without weight."
+          }
+        },
+        "ingredient-4": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Tasmanian Boronia",
+            "origin": "Huon Valley, Tasmania",
+            "body": "One of the most expensive naturals in perfumery. A singular floral-fruity note — ionone-rich, violet-adjacent, irreplaceable. Used only in our Gold series."
+          }
+        }
+      },
+      "block_order": ["ingredient-1", "ingredient-2", "ingredient-3", "ingredient-4"]
+    }
+  },
+  "order": [
+    "main",
+    "provenance-ingredients"
+  ]
+}

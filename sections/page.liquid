@@ -1,17 +1,66 @@
-{% comment %}
-  This section is used in the page template to render store pages like About us
-  or Contact us.
+{%- comment -%} AUREA PARIS — Page Section {%- endcomment -%}
 
-  https://shopify.dev/docs/storefronts/themes/architecture/templates/page
-{% endcomment %}
+<article class="aurea-page full-width">
+  <div class="aurea-page__header">
+    <div class="aurea-page__rule"></div>
+    <h1 class="aurea-page__title">{{ page.title }}</h1>
+  </div>
+  <div class="aurea-page__content">
+    {{ page.content }}
+  </div>
+</article>
 
-<h1>{{ page.title }}</h1>
+{% stylesheet %}
+  .aurea-page {
+    background: #1A1F1C;
+    padding: 80px 64px 96px;
+  }
+  .aurea-page__header {
+    max-width: 720px;
+    margin: 0 auto 48px;
+  }
+  .aurea-page__rule {
+    width: 40px;
+    height: 1px;
+    background: #C5A96B;
+    margin-bottom: 24px;
+  }
+  .aurea-page__title {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 48px;
+    font-weight: 300;
+    font-style: italic;
+    color: #F5F0E8;
+    letter-spacing: 0.04em;
+  }
+  .aurea-page__content {
+    max-width: 720px;
+    margin: 0 auto;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 15px;
+    font-weight: 300;
+    color: rgba(245, 240, 232, 0.55);
+    line-height: 1.85;
+  }
+  .aurea-page__content p {
+    margin-bottom: 24px;
+  }
+  .aurea-page__content h2, .aurea-page__content h3 {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-weight: 300;
+    color: #F5F0E8;
+    margin: 40px 0 16px;
+  }
 
-{{ page.content }}
+  @media (max-width: 768px) {
+    .aurea-page { padding: 48px 24px 64px; }
+    .aurea-page__title { font-size: 36px; }
+  }
+{% endstylesheet %}
 
 {% schema %}
 {
-  "name": "t:general.page",
+  "name": "Aurea Page",
   "settings": []
 }
 {% endschema %}

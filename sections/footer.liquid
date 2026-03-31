@@ -1,57 +1,184 @@
-<footer>
-  <div class="footer__copyright">
-    &copy;
-    {{ 'now' | date: '%Y' }}
-    {{ shop.name | link_to: routes.root_url }}, {{ powered_by_link }}
+{%- comment -%} AUREA PARIS — Footer {%- endcomment -%}
+
+<footer class="aurea-footer full-width">
+  <div class="footer-grid">
+    {%- comment -%} Column 1 — Brand {%- endcomment -%}
+    <div class="footer-brand">
+      <a href="{{ routes.root_url }}" class="footer-brand__wordmark">Aurea</a>
+      <p class="footer-brand__tagline">Composed slowly, from rare things, for people who notice.</p>
+      <div class="footer-brand__social">
+        <a href="#" class="footer-social-icon" aria-label="Instagram">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a href="#" class="footer-social-icon" aria-label="Pinterest">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M8 21c1-2 2-5 2.5-7.5.5-2.5 1-3 2.5-3s2 1.5 1.5 3.5"/></svg>
+        </a>
+        <a href="#" class="footer-social-icon" aria-label="Twitter">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4l16 16M4 20L20 4"/></svg>
+        </a>
+      </div>
+    </div>
+
+    {%- comment -%} Column 2 — Collections {%- endcomment -%}
+    <div class="footer-links">
+      <h4 class="footer-links__title">Collection</h4>
+      <a href="/products/vetiver-no-4">Vetiver No. 4</a>
+      <a href="/products/moss-cedar">Moss &amp; Cedar</a>
+      <a href="/products/the-gold-set">The Gold Set</a>
+      <a href="/products/discovery-set">Discovery Set</a>
+      <a href="/pages/bespoke">Bespoke</a>
+    </div>
+
+    {%- comment -%} Column 3 — Maison {%- endcomment -%}
+    <div class="footer-links">
+      <h4 class="footer-links__title">Maison</h4>
+      <a href="/pages/our-story">Our Story</a>
+      <a href="/pages/provenance">Provenance</a>
+      <a href="/blogs/journal">Journal</a>
+      <a href="/pages/stockists">Stockists</a>
+      <a href="/pages/atelier">Atelier Visits</a>
+    </div>
+
+    {%- comment -%} Column 4 — Support {%- endcomment -%}
+    <div class="footer-links">
+      <h4 class="footer-links__title">Support</h4>
+      <a href="/pages/shipping">Shipping &amp; Returns</a>
+      <a href="/pages/faq">FAQ</a>
+      <a href="/pages/contact">Contact</a>
+      <a href="/pages/engraving">Engraving Service</a>
+    </div>
   </div>
 
-  <div class="footer__links">
-    {% for link in section.settings.menu.links %}
-      {{ link.title | link_to: link.url }}
-    {% endfor %}
-  </div>
-
-  <div class="footer__payment">
-    {% if section.settings.show_payment_icons %}
-      {% for type in shop.enabled_payment_types %}
-        {{ type | payment_type_svg_tag }}
-      {% endfor %}
-    {% endif %}
+  <div class="footer-bottom">
+    <p class="footer-bottom__copy">&copy; 2025 Aurea Paris. All rights reserved.</p>
+    <div class="footer-bottom__legal">
+      <a href="/pages/privacy">Privacy</a>
+      <span>&middot;</span>
+      <a href="/pages/terms">Terms</a>
+      <span>&middot;</span>
+      <a href="/pages/accessibility">Accessibility</a>
+    </div>
   </div>
 </footer>
 
 {% stylesheet %}
-  footer {
+  .aurea-footer {
+    background: #111714;
+    border-top: 1px solid rgba(197, 169, 107, 0.18);
+    padding: 72px 64px 40px;
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 48px;
+    margin-bottom: 56px;
+  }
+  .footer-brand__wordmark {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 32px;
+    font-weight: 300;
+    color: #F5F0E8;
+    text-decoration: none;
+    display: block;
+  }
+  .footer-brand__tagline {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 15px;
+    font-style: italic;
+    font-weight: 300;
+    color: rgba(245, 240, 232, 0.4);
+    line-height: 1.7;
+    max-width: 260px;
+    margin: 14px 0 28px;
+  }
+  .footer-brand__social {
+    display: flex;
+    gap: 12px;
+  }
+  .footer-social-icon {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(197, 169, 107, 0.18);
+    color: rgba(245, 240, 232, 0.4);
+    text-decoration: none;
+    transition: border-color 0.3s, color 0.3s;
+  }
+  .footer-social-icon:hover {
+    border-color: #C5A96B;
+    color: #C5A96B;
+  }
+  .footer-links {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .footer-links__title {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 10px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: #C5A96B;
+    margin-bottom: 8px;
+  }
+  .footer-links a {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 13px;
+    font-weight: 300;
+    color: rgba(245, 240, 232, 0.4);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .footer-links a:hover { color: #F5F0E8; }
+  .footer-bottom {
+    border-top: 1px solid rgba(197, 169, 107, 0.12);
+    padding-top: 28px;
     display: flex;
     justify-content: space-between;
-    margin-top: 2rem;
+    flex-wrap: wrap;
+    gap: 12px;
   }
-  footer a {
-    text-decoration: none;
-    color: var(--color-foreground);
+  .footer-bottom__copy {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 11px;
+    color: rgba(245, 240, 232, 0.25);
   }
-  footer .footer__links,
-  footer .footer__payment {
+  .footer-bottom__legal {
     display: flex;
-    gap: 1rem;
+    gap: 24px;
+    align-items: center;
+  }
+  .footer-bottom__legal a {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 10px;
+    text-transform: uppercase;
+    color: rgba(245, 240, 232, 0.25);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .footer-bottom__legal a:hover { color: #F5F0E8; }
+  .footer-bottom__legal span {
+    color: rgba(245, 240, 232, 0.15);
+    font-size: 10px;
+  }
+  @media (max-width: 1024px) {
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 768px) {
+    .aurea-footer { padding: 48px 24px 32px; }
+    .footer-grid {
+      grid-template-columns: 1fr;
+      gap: 36px;
+    }
   }
 {% endstylesheet %}
 
 {% schema %}
 {
-  "name": "t:general.footer",
-  "settings": [
-    {
-      "type": "link_list",
-      "id": "menu",
-      "label": "t:labels.menu"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_payment_icons",
-      "label": "t:labels.show_payment_icons",
-      "default": true
-    }
-  ]
+  "name": "Aurea Footer",
+  "settings": []
 }
 {% endschema %}

@@ -1,0 +1,194 @@
+{%- comment -%} AUREA PARIS — Testimonials Section {%- endcomment -%}
+
+<section class="aurea-testimonials full-width">
+  <div class="aurea-testimonials__header">
+    <div class="aurea-testimonials__rule"></div>
+    <p class="aurea-testimonials__overline">{{ section.settings.overline }}</p>
+    <h2 class="aurea-testimonials__heading">{{ section.settings.heading }}</h2>
+  </div>
+
+  <div class="aurea-testimonials__grid">
+    {% for block in section.blocks %}
+      <div class="testi-card" {{ block.shopify_attributes }}>
+        <div class="testi-card__stars">
+          {% for i in (1..5) %}
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="#C5A96B" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          {% endfor %}
+        </div>
+        <p class="testi-card__text">{{ block.settings.text }}</p>
+        <div class="testi-card__footer">
+          <span class="testi-card__author">{{ block.settings.author }}</span>
+          <span class="testi-card__location">{{ block.settings.location }}</span>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+{% stylesheet %}
+  .aurea-testimonials {
+    background: #1A1F1C;
+    padding: 96px 64px;
+  }
+  .aurea-testimonials__header {
+    text-align: center;
+    margin-bottom: 64px;
+  }
+  .aurea-testimonials__rule {
+    width: 40px;
+    height: 1px;
+    background: #C5A96B;
+    margin: 0 auto 20px;
+  }
+  .aurea-testimonials__overline {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 10px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: #C5A96B;
+    margin-bottom: 14px;
+  }
+  .aurea-testimonials__heading {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 42px;
+    font-weight: 300;
+    font-style: italic;
+    color: #F5F0E8;
+    letter-spacing: 0.04em;
+  }
+  .aurea-testimonials__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* ── Testimonial Card ── */
+  .testi-card {
+    background: #242B26;
+    padding: 40px 32px;
+    display: flex;
+    flex-direction: column;
+  }
+  .testi-card__stars {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 24px;
+  }
+  .testi-card__text {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 17px;
+    font-weight: 300;
+    font-style: italic;
+    color: rgba(245, 240, 232, 0.7);
+    line-height: 1.7;
+    flex: 1;
+    margin-bottom: 28px;
+  }
+  .testi-card__footer {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(197, 169, 107, 0.12);
+  }
+  .testi-card__author {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+    color: #F5F0E8;
+    letter-spacing: 0.06em;
+  }
+  .testi-card__location {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 10px;
+    font-weight: 300;
+    color: rgba(245, 240, 232, 0.35);
+    letter-spacing: 0.04em;
+  }
+
+  @media (max-width: 1024px) {
+    .aurea-testimonials__grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 768px) {
+    .aurea-testimonials { padding: 64px 24px; }
+    .aurea-testimonials__grid { grid-template-columns: 1fr; }
+    .aurea-testimonials__heading { font-size: 34px; }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Aurea Testimonials",
+  "settings": [
+    {
+      "type": "text",
+      "id": "overline",
+      "label": "Overline",
+      "default": "From those who wear it"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Quietly devoted."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Review text"
+        },
+        {
+          "type": "text",
+          "id": "author",
+          "label": "Author"
+        },
+        {
+          "type": "text",
+          "id": "location",
+          "label": "Location"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Aurea Testimonials",
+      "blocks": [
+        {
+          "type": "review",
+          "settings": {
+            "text": "Vetiver No. 4 is the only fragrance I've ever repurchased without hesitation. It changes through the day — smoke in the morning, leather by dusk.",
+            "author": "Miriam A.",
+            "location": "Stockholm, Sweden"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "text": "I wore Moss & Cedar to my wedding. Three years on, it still stops me completely when I smell it on someone. That kind of power is rare.",
+            "author": "James & Saoirse K.",
+            "location": "Dublin, Ireland"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "text": "The Gold Set is the most complex thing I've ever smelled. It took three wearings to understand it, and now I cannot go without it.",
+            "author": "Naomi T.",
+            "location": "New York, USA"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

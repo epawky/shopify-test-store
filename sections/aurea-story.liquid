@@ -1,0 +1,219 @@
+{%- comment -%} AUREA PARIS — Brand Story Section {%- endcomment -%}
+
+<section class="aurea-story full-width">
+  <div class="aurea-story__inner">
+    <div class="aurea-story__visual">
+      {% if section.settings.story_image != blank %}
+        {{ section.settings.story_image | image_url: width: 900 | image_tag:
+          loading: 'lazy',
+          class: 'aurea-story__image',
+          sizes: '50vw',
+          widths: '400, 600, 900'
+        }}
+      {% else %}
+        <div class="aurea-story__image-placeholder"></div>
+      {% endif %}
+    </div>
+
+    <div class="aurea-story__text story-text">
+      <div class="aurea-story__rule"></div>
+      <p class="aurea-story__overline">{{ section.settings.overline }}</p>
+      <h2 class="aurea-story__heading">{{ section.settings.heading }}</h2>
+
+      <blockquote class="aurea-story__quote">
+        {{ section.settings.pull_quote }}
+      </blockquote>
+
+      <div class="aurea-story__body">
+        <p>{{ section.settings.body_1 }}</p>
+        <p>{{ section.settings.body_2 }}</p>
+      </div>
+
+      <div class="aurea-story__signature">
+        <span class="aurea-story__sig-name">{{ section.settings.sig_name }}</span>
+        <span class="aurea-story__sig-role">{{ section.settings.sig_role }}</span>
+      </div>
+
+      {% if section.settings.cta_label != blank %}
+        <a href="{{ section.settings.cta_link }}" class="aurea-btn aurea-btn--ghost">{{ section.settings.cta_label }}</a>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .aurea-story {
+    background: #1A1F1C;
+    padding: 96px 64px;
+  }
+  .aurea-story__inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 72px;
+    max-width: 1200px;
+    margin: 0 auto;
+    align-items: center;
+  }
+  .aurea-story__visual {
+    background: #242B26;
+    aspect-ratio: 4/5;
+    overflow: hidden;
+  }
+  .aurea-story__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .aurea-story__image-placeholder {
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, rgba(197,169,107,0.06) 0%, transparent 70%);
+  }
+  .aurea-story__rule {
+    width: 40px;
+    height: 1px;
+    background: #C5A96B;
+    margin-bottom: 20px;
+  }
+  .aurea-story__overline {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 10px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: #C5A96B;
+    margin-bottom: 14px;
+  }
+  .aurea-story__heading {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 42px;
+    font-weight: 300;
+    font-style: italic;
+    color: #F5F0E8;
+    letter-spacing: 0.04em;
+    margin-bottom: 36px;
+  }
+  .aurea-story__quote {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 20px;
+    font-weight: 300;
+    font-style: italic;
+    color: rgba(245, 240, 232, 0.6);
+    line-height: 1.65;
+    border-left: 1px solid rgba(197, 169, 107, 0.3);
+    padding-left: 24px;
+    margin: 0 0 32px 0;
+  }
+  .aurea-story__body p {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    color: rgba(245, 240, 232, 0.45);
+    line-height: 1.85;
+    margin-bottom: 20px;
+  }
+  .aurea-story__signature {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin: 32px 0;
+    padding-top: 24px;
+    border-top: 1px solid rgba(197, 169, 107, 0.12);
+  }
+  .aurea-story__sig-name {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 18px;
+    font-weight: 300;
+    font-style: italic;
+    color: #F5F0E8;
+  }
+  .aurea-story__sig-role {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 10px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: rgba(245, 240, 232, 0.35);
+  }
+
+  @media (max-width: 768px) {
+    .aurea-story { padding: 64px 24px; }
+    .aurea-story__inner {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+    .aurea-story__heading { font-size: 34px; }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Aurea Story",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "story_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "overline",
+      "label": "Overline",
+      "default": "The Maison"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "A different kind of house."
+    },
+    {
+      "type": "textarea",
+      "id": "pull_quote",
+      "label": "Pull quote",
+      "default": "We do not follow seasons. We follow light — the quality of it, the absence of it, and everything that grows in between."
+    },
+    {
+      "type": "textarea",
+      "id": "body_1",
+      "label": "Body paragraph 1",
+      "default": "Aurea was founded in 2009 by perfumer Élise Morand in a small atelier near Grasse. Trained in classical French composition, she grew disillusioned with the speed of commercial fragrance — with its reliance on synthetics, its indifference to source."
+    },
+    {
+      "type": "textarea",
+      "id": "body_2",
+      "label": "Body paragraph 2",
+      "default": "Every Aurea fragrance begins in the field. We work directly with growers in Haiti, Oman, Tasmania, and the Atlas Mountains — sourcing only what the land offers willingly, in its proper season. The result is perfume that evolves. That deepens. That rewards patience."
+    },
+    {
+      "type": "text",
+      "id": "sig_name",
+      "label": "Signature name",
+      "default": "Élise Morand"
+    },
+    {
+      "type": "text",
+      "id": "sig_role",
+      "label": "Signature role",
+      "default": "Founder & Master Perfumer, Aurea Paris"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "CTA label",
+      "default": "Read Our Story"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "CTA link",
+      "default": "/pages/our-story"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Aurea Story"
+    }
+  ]
+}
+{% endschema %}

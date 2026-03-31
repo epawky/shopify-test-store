@@ -1,26 +1,24 @@
 <!doctype html>
 <html lang="{{ request.locale.iso_code }}">
   <head>
-    {% # Inlined CSS Variables %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {%- comment -%} Google Fonts — Cormorant Garamond & DM Sans {%- endcomment -%}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet">
+
+    {%- comment -%} Aurea design tokens {%- endcomment -%}
+    {{ 'aurea-tokens.css' | asset_url | stylesheet_tag }}
+
+    {%- comment -%} Inlined CSS Variables {%- endcomment -%}
     {% render 'css-variables' %}
 
-    {% comment %}
-      Font preloading:
-      1. Preconnect to font CDN for faster connection
-      2. Preload only the critical font variant (base weight)
-      3. Additional variants load on-demand via @font-face
-    {% endcomment %}
-    {% unless settings.type_primary_font.system? %}
-      <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
-
-      {% comment %} Preload the base font variant for initial page render {% endcomment %}
-      {{ settings.type_primary_font | font_url | preload_tag: as: 'font', crossorigin: 'anonymous' }}
-    {% endunless %}
-
-    {% # Load and preload the critical CSS %}
+    {%- comment -%} Critical CSS {%- endcomment -%}
     {{ 'critical.css' | asset_url | stylesheet_tag: preload: true }}
 
-    {% # Social, title, etc. %}
+    {%- comment -%} Social, title, etc. {%- endcomment -%}
     {% render 'meta-tags' %}
 
     {{ content_for_header }}
@@ -32,5 +30,23 @@
     {{ content_for_layout }}
 
     {% sections 'footer-group' %}
+
+    {%- comment -%} Storefront API config {%- endcomment -%}
+    <script>
+      window.Aurea = {
+        storefrontToken: '37fa638563f9439d3c55aa5bb28327bc',
+        shopDomain: {{ request.host | json }},
+        rootUrl: {{ routes.root_url | json }},
+        cartUrl: {{ routes.cart_url | json }},
+        routes: {
+          cart_add_url: '{{ routes.cart_add_url }}',
+          cart_change_url: '{{ routes.cart_change_url }}',
+          cart_update_url: '{{ routes.cart_update_url }}',
+          cart_url: '{{ routes.cart_url }}'
+        }
+      };
+    </script>
+
+    <script src="{{ 'aurea-animations.js' | asset_url }}" defer></script>
   </body>
 </html>

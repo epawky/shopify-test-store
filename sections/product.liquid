@@ -1,49 +1,368 @@
-{% comment %}
-  This section is used in the product template to render product page with
-  media, content, and add-to-cart form.
+{%- comment -%}
+  AUREA PARIS — Product Detail Page
+{%- endcomment -%}
 
-  https://shopify.dev/docs/storefronts/themes/architecture/templates/product
-{% endcomment %}
+<div class="pdp full-width">
+  {%- comment -%} ── Image Gallery ── {%- endcomment -%}
+  <div class="pdp__gallery">
+    <div class="pdp__main-image">
+      {% if product.featured_image %}
+        {{ product.featured_image | image_url: width: 1200 | image_tag:
+          loading: 'eager',
+          fetchpriority: 'high',
+          class: 'pdp__image',
+          id: 'pdp-main-img',
+          sizes: '50vw',
+          widths: '400, 800, 1200'
+        }}
+      {% else %}
+        <div class="pdp__image-placeholder">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C5A96B" stroke-width="1"><circle cx="12" cy="12" r="11"/></svg>
+        </div>
+      {% endif %}
+    </div>
+    {% if product.images.size > 1 %}
+      <div class="pdp__thumbs">
+        {% for image in product.images %}
+          <button class="pdp__thumb{% if forloop.first %} pdp__thumb--active{% endif %}" data-img-url="{{ image | image_url: width: 1200 }}" aria-label="View image {{ forloop.index }}">
+            {{ image | image_url: width: 150 | image_tag: loading: 'lazy', class: 'pdp__thumb-img' }}
+          </button>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
 
-<div class="product-images">
-  {% for image in product.images %}
-    {% render 'image', class: 'product-image', image: image %}
-  {% endfor %}
-</div>
+  {%- comment -%} ── Product Info ── {%- endcomment -%}
+  <div class="pdp__info">
+    <nav class="pdp__breadcrumb">
+      <a href="{{ routes.root_url }}">Home</a>
+      <span>&middot;</span>
+      {% if product.collections.first %}
+        <a href="{{ product.collections.first.url }}">{{ product.collections.first.title }}</a>
+        <span>&middot;</span>
+      {% endif %}
+      <span>{{ product.title }}</span>
+    </nav>
 
-<div class="product-info">
-  <h1>{{ product.title }}</h1>
-  <p>{{ product.price | money }}</p>
-  <p>{{ product.description }}</p>
-</div>
+    <hr class="pdp__divider">
 
-<div class="product-form">
-  {% form 'product', product %}
-    {% assign current_variant = product.selected_or_first_available_variant %}
+    <h1 class="pdp__title">{{ product.title }}</h1>
+    <p class="pdp__price">{{ product.price | money }}</p>
 
-    <select name="id">
-      {% for variant in product.variants %}
-        <option
-          value="{{ variant.id }}"
-          {% if variant == current_variant %}
-            selected="selected"
+    {% if product.metafields.custom.scent_notes != blank %}
+      <p class="pdp__scent-notes">{{ product.metafields.custom.scent_notes }}</p>
+    {% endif %}
+
+    <hr class="pdp__divider">
+
+    {% form 'product', product %}
+      {% assign current_variant = product.selected_or_first_available_variant %}
+
+      {%- comment -%} Variant pills {%- endcomment -%}
+      {% if product.variants.size > 1 %}
+        <div class="pdp__variants">
+          {% for variant in product.variants %}
+            <label class="pdp__variant-pill{% if variant == current_variant %} pdp__variant-pill--selected{% endif %}">
+              <input type="radio" name="id" value="{{ variant.id }}" {% if variant == current_variant %}checked{% endif %} class="visually-hidden">
+              {{ variant.title }}
+            </label>
+          {% endfor %}
+        </div>
+      {% else %}
+        <input type="hidden" name="id" value="{{ current_variant.id }}">
+      {% endif %}
+
+      <input type="hidden" name="quantity" value="1">
+      <button type="submit" class="pdp__add-to-cart aurea-btn aurea-btn--primary">Add to Cart</button>
+    {% endform %}
+
+    <p class="pdp__trust">Ethically Sourced &middot; Complimentary Engraving &middot; Free Returns</p>
+
+    <hr class="pdp__divider">
+
+    {%- comment -%} Accordions {%- endcomment -%}
+    <div class="pdp-accordion">
+      <div class="pdp-accordion__item">
+        <button class="pdp-accordion__header" type="button">
+          <span>Description</span>
+          <svg class="pdp-accordion__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="pdp-accordion__body">
+          {{ product.description }}
+        </div>
+      </div>
+      <div class="pdp-accordion__item">
+        <button class="pdp-accordion__header" type="button">
+          <span>Notes & Materials</span>
+          <svg class="pdp-accordion__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="pdp-accordion__body">
+          {% if product.metafields.custom.materials != blank %}
+            {{ product.metafields.custom.materials }}
+          {% else %}
+            <p>Details coming soon.</p>
           {% endif %}
-        >
-          {{ variant.title }} - {{ variant.price | money }}
-        </option>
-      {% endfor %}
-    </select>
-
-    <input type="text" name="quantity" min="1" value="1">
-
-    <input type="submit" value="Add to cart">
-    {{ form | payment_button }}
-  {% endform %}
+        </div>
+      </div>
+      <div class="pdp-accordion__item">
+        <button class="pdp-accordion__header" type="button">
+          <span>Shipping</span>
+          <svg class="pdp-accordion__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="pdp-accordion__body">
+          <p>Complimentary shipping on all orders. Standard delivery within 3–5 business days. Express options available at checkout.</p>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+
+<script>
+  // Thumbnail gallery switcher
+  document.querySelectorAll('.pdp__thumb').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var mainImg = document.getElementById('pdp-main-img');
+      if (mainImg) mainImg.src = this.dataset.imgUrl;
+      document.querySelectorAll('.pdp__thumb').forEach(function(t) { t.classList.remove('pdp__thumb--active'); });
+      this.classList.add('pdp__thumb--active');
+    });
+  });
+
+  // Variant pill selection
+  document.querySelectorAll('.pdp__variant-pill input').forEach(function(input) {
+    input.addEventListener('change', function() {
+      document.querySelectorAll('.pdp__variant-pill').forEach(function(p) { p.classList.remove('pdp__variant-pill--selected'); });
+      this.closest('.pdp__variant-pill').classList.add('pdp__variant-pill--selected');
+    });
+  });
+</script>
+
+{% stylesheet %}
+  .pdp {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 100vh;
+    background: #1A1F1C;
+  }
+
+  /* ── Gallery ── */
+  .pdp__gallery {
+    position: sticky;
+    top: 64px;
+    align-self: start;
+    padding: 32px;
+  }
+  .pdp__main-image {
+    aspect-ratio: 3/4;
+    background: #242B26;
+    overflow: hidden;
+    margin-bottom: 12px;
+  }
+  .pdp__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .pdp__image-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #2C3530;
+  }
+  .pdp__thumbs {
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+  }
+  .pdp__thumb {
+    width: 72px;
+    height: 72px;
+    flex-shrink: 0;
+    background: #242B26;
+    border: 1px solid transparent;
+    padding: 0;
+    cursor: pointer;
+    opacity: 0.55;
+    transition: opacity 0.3s ease, border-color 0.3s ease;
+  }
+  .pdp__thumb:hover { opacity: 1; }
+  .pdp__thumb--active {
+    opacity: 1;
+    border-color: #C5A96B;
+  }
+  .pdp__thumb-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* ── Info ── */
+  .pdp__info {
+    padding: 64px 56px;
+    max-width: 560px;
+  }
+  .pdp__breadcrumb {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 10px;
+    color: rgba(245, 240, 232, 0.35);
+    margin-bottom: 20px;
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .pdp__breadcrumb a {
+    color: rgba(245, 240, 232, 0.35);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .pdp__breadcrumb a:hover { color: #C5A96B; }
+  .pdp__divider {
+    border: none;
+    border-top: 1px solid rgba(197, 169, 107, 0.12);
+    margin: 28px 0;
+  }
+  .pdp__title {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 40px;
+    font-weight: 300;
+    color: #F5F0E8;
+    line-height: 1.15;
+    margin-bottom: 12px;
+  }
+  .pdp__price {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 15px;
+    color: #C5A96B;
+    letter-spacing: 0.08em;
+    margin-bottom: 24px;
+  }
+  .pdp__scent-notes {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 16px;
+    font-style: italic;
+    font-weight: 300;
+    color: rgba(245, 240, 232, 0.5);
+    line-height: 1.7;
+    margin-bottom: 28px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* ── Variants ── */
+  .pdp__variants {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 32px;
+  }
+  .pdp__variant-pill {
+    border: 1px solid rgba(197, 169, 107, 0.25);
+    color: rgba(245, 240, 232, 0.6);
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.13em;
+    padding: 10px 20px;
+    border-radius: 0;
+    cursor: pointer;
+    transition: border-color 0.3s, background 0.3s, color 0.3s;
+  }
+  .pdp__variant-pill--selected {
+    border-color: #C5A96B;
+    background: rgba(197, 169, 107, 0.08);
+    color: #C5A96B;
+  }
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  /* ── Add to Cart ── */
+  .pdp__add-to-cart {
+    width: 100%;
+    height: 54px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .pdp__trust {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 10px;
+    color: rgba(245, 240, 232, 0.35);
+    text-align: center;
+    margin-top: 16px;
+  }
+
+  /* ── Accordion ── */
+  .pdp-accordion__item {
+    border-bottom: 1px solid rgba(197, 169, 107, 0.12);
+  }
+  .pdp-accordion__header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 10px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: #F5F0E8;
+  }
+  .pdp-accordion__chevron {
+    color: #C5A96B;
+    transition: transform 0.4s ease;
+  }
+  .pdp-accordion__item.is-open .pdp-accordion__chevron {
+    transform: rotate(180deg);
+  }
+  .pdp-accordion__body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    color: rgba(245, 240, 232, 0.55);
+    line-height: 1.85;
+  }
+  .pdp-accordion__item.is-open .pdp-accordion__body {
+    max-height: 500px;
+    padding-bottom: 20px;
+  }
+
+  /* ── Mobile ── */
+  @media (max-width: 768px) {
+    .pdp {
+      grid-template-columns: 1fr;
+    }
+    .pdp__gallery {
+      position: static;
+      padding: 16px;
+    }
+    .pdp__info {
+      padding: 32px 24px;
+      max-width: none;
+    }
+    .pdp__title { font-size: 32px; }
+  }
+{% endstylesheet %}
 
 {% schema %}
 {
-  "name": "t:general.product",
+  "name": "Aurea Product",
   "settings": [],
   "disabled_on": {
     "groups": ["header", "footer"]

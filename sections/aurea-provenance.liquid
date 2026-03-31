@@ -1,0 +1,198 @@
+{%- comment -%} AUREA PARIS — Provenance Section {%- endcomment -%}
+
+<section class="aurea-provenance full-width">
+  <div class="aurea-provenance__header">
+    <div class="aurea-provenance__rule"></div>
+    <p class="aurea-provenance__overline">{{ section.settings.overline }}</p>
+    <h2 class="aurea-provenance__heading">{{ section.settings.heading }}</h2>
+  </div>
+
+  <div class="aurea-provenance__grid">
+    {% for block in section.blocks %}
+      <div class="ingredient-card" {{ block.shopify_attributes }}>
+        <div class="ingredient-card__index">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</div>
+        <h3 class="ingredient-card__name">{{ block.settings.name }}</h3>
+        <p class="ingredient-card__origin">{{ block.settings.origin }}</p>
+        <div class="ingredient-card__divider"></div>
+        <p class="ingredient-card__body">{{ block.settings.body }}</p>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+{% stylesheet %}
+  .aurea-provenance {
+    background: #242B26;
+    padding: 96px 64px;
+  }
+  .aurea-provenance__header {
+    text-align: center;
+    margin-bottom: 64px;
+  }
+  .aurea-provenance__rule {
+    width: 40px;
+    height: 1px;
+    background: #C5A96B;
+    margin: 0 auto 20px;
+  }
+  .aurea-provenance__overline {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 10px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: #C5A96B;
+    margin-bottom: 14px;
+  }
+  .aurea-provenance__heading {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 42px;
+    font-weight: 300;
+    font-style: italic;
+    color: #F5F0E8;
+    letter-spacing: 0.04em;
+  }
+  .aurea-provenance__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* ── Ingredient Card ── */
+  .ingredient-card {
+    background: #1A1F1C;
+    padding: 40px 32px;
+    border-top: 1px solid rgba(197, 169, 107, 0.12);
+  }
+  .ingredient-card__index {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 9px;
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    color: rgba(197, 169, 107, 0.4);
+    margin-bottom: 20px;
+  }
+  .ingredient-card__name {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 24px;
+    font-weight: 300;
+    font-style: italic;
+    color: #F5F0E8;
+    margin-bottom: 8px;
+  }
+  .ingredient-card__origin {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 9px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: #7B9E87;
+    margin-bottom: 20px;
+  }
+  .ingredient-card__divider {
+    width: 24px;
+    height: 1px;
+    background: rgba(197, 169, 107, 0.18);
+    margin-bottom: 20px;
+  }
+  .ingredient-card__body {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 13px;
+    font-weight: 300;
+    color: rgba(245, 240, 232, 0.45);
+    line-height: 1.75;
+  }
+
+  @media (max-width: 1024px) {
+    .aurea-provenance__grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 768px) {
+    .aurea-provenance { padding: 64px 24px; }
+    .aurea-provenance__grid { grid-template-columns: 1fr; }
+    .aurea-provenance__heading { font-size: 34px; }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Aurea Provenance",
+  "settings": [
+    {
+      "type": "text",
+      "id": "overline",
+      "label": "Overline",
+      "default": "Provenance"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "What we source, and where."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "ingredient",
+      "name": "Ingredient",
+      "settings": [
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Name"
+        },
+        {
+          "type": "text",
+          "id": "origin",
+          "label": "Origin"
+        },
+        {
+          "type": "textarea",
+          "id": "body",
+          "label": "Description"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Aurea Provenance",
+      "blocks": [
+        {
+          "type": "ingredient",
+          "settings": {
+            "name": "Haitian Vetiver",
+            "origin": "Artibonite Valley, Haiti",
+            "body": "Roots hand-harvested at 18 months, steam-distilled on-site. Darker, smokier, more complex than alternatives. Our primary anchor for woody compositions."
+          }
+        },
+        {
+          "type": "ingredient",
+          "settings": {
+            "name": "Omani Frankincense",
+            "origin": "Dhofar Region, Oman",
+            "body": "Boswellia sacra resin, wild-harvested by Bedouin families. The finest grade — milky, sacred, with a lift of citrus that lesser resins cannot offer."
+          }
+        },
+        {
+          "type": "ingredient",
+          "settings": {
+            "name": "Atlas Cedar",
+            "origin": "Azrou Forest, Morocco",
+            "body": "Cold-pressed from sustainably managed Cedrus atlantica. Warm, dry, and pencil-shaving clean. A foundation note that carries for hours without weight."
+          }
+        },
+        {
+          "type": "ingredient",
+          "settings": {
+            "name": "Tasmanian Boronia",
+            "origin": "Huon Valley, Tasmania",
+            "body": "One of the most expensive naturals in perfumery. A singular floral-fruity note — ionone-rich, violet-adjacent, irreplaceable. Used only in our Gold series."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

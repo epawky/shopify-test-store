@@ -1,47 +1,209 @@
-{% comment %}
-  This section is used in the collection template to render collection page
-  listing all products within a collection.
+{%- comment -%}
+  AUREA PARIS — Collection Page
+{%- endcomment -%}
 
-  https://shopify.dev/docs/storefronts/themes/architecture/templates/collection
-{% endcomment %}
+{%- comment -%} ── Collection Hero Banner ── {%- endcomment -%}
+<div class="collection-hero full-width">
+  <div class="collection-hero__line"></div>
+  <div class="collection-hero__content">
+    <p class="collection-hero__overline">Collection</p>
+    <h1 class="collection-hero__title"><em>{{ collection.title }}</em></h1>
+    {% if collection.description != blank %}
+      <p class="collection-hero__desc">{{ collection.description | strip_html }}</p>
+    {% endif %}
+  </div>
+</div>
 
-<h1>{{ collection.title }}</h1>
+{%- comment -%} ── Toolbar ── {%- endcomment -%}
+<div class="collection-toolbar full-width">
+  <span class="collection-toolbar__count">{{ collection.products_count }} {{ collection.products_count | pluralize: 'product', 'products' }}</span>
+  <div class="collection-toolbar__sort">
+    <select id="sort-by" aria-label="Sort products">
+      <option value="best-selling">Best Selling</option>
+      <option value="price-ascending">Price: Low to High</option>
+      <option value="price-descending">Price: High to Low</option>
+      <option value="title-ascending">A–Z</option>
+      <option value="created-descending">Newest</option>
+    </select>
+  </div>
+</div>
 
-<div class="collection-products">
-  {% paginate collection.products by 20 %}
+{%- comment -%} ── Product Grid ── {%- endcomment -%}
+<div class="collection-grid full-width">
+  {% paginate collection.products by 12 %}
     {% for product in collection.products %}
-      <div class="collection-product">
-        {% if product.featured_image %}
-          {% render 'image',
-            class: 'collection-product__image',
-            image: product.featured_image,
-            url: product.url,
-            width: 400,
-            height: 400,
-            crop: 'center'
-          %}
-        {% endif %}
-        <div class="collection-product__content">
-          <p>{{ product.title | escape | link_to: product.url }}</p>
-          <p>{{ product.price | money }}</p>
-        </div>
-      </div>
+      {% render 'card-product', product: product, eager: forloop.index <= 3 %}
     {% endfor %}
-
-    {{ paginate | default_pagination }}
   {% endpaginate %}
 </div>
 
+{%- comment -%} ── Pagination ── {%- endcomment -%}
+{% paginate collection.products by 12 %}
+  {% if paginate.pages > 1 %}
+    <nav class="collection-pagination full-width">
+      {% if paginate.previous %}
+        <a href="{{ paginate.previous.url }}" class="collection-pagination__arrow" aria-label="Previous">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="15 18 9 12 15 6"/></svg>
+        </a>
+      {% endif %}
+      {% for part in paginate.parts %}
+        {% if part.is_link %}
+          <a href="{{ part.url }}" class="collection-pagination__page">{{ part.title }}</a>
+        {% else %}
+          <span class="collection-pagination__page collection-pagination__page--active">{{ part.title }}</span>
+        {% endif %}
+      {% endfor %}
+      {% if paginate.next %}
+        <a href="{{ paginate.next.url }}" class="collection-pagination__arrow" aria-label="Next">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="9 18 15 12 9 6"/></svg>
+        </a>
+      {% endif %}
+    </nav>
+  {% endif %}
+{% endpaginate %}
+
+<script>
+  document.getElementById('sort-by').addEventListener('change', function() {
+    var url = new URL(window.location.href);
+    url.searchParams.set('sort_by', this.value);
+    window.location.href = url.toString();
+  });
+  // Set current sort value
+  (function() {
+    var params = new URLSearchParams(window.location.search);
+    var sort = params.get('sort_by');
+    if (sort) document.getElementById('sort-by').value = sort;
+  })();
+</script>
+
 {% stylesheet %}
-  .collection-products {
+  /* ── Collection Hero ── */
+  .collection-hero {
+    position: relative;
+    height: 300px;
+    background: #242B26;
+    overflow: hidden;
+  }
+  .collection-hero__line {
+    position: absolute;
+    left: 48px;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: rgba(197, 169, 107, 0.35);
+  }
+  .collection-hero__content {
+    position: absolute;
+    left: 80px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  .collection-hero__overline {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 10px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: #C5A96B;
+    margin-bottom: 12px;
+  }
+  .collection-hero__title {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 52px;
+    font-weight: 300;
+    color: #F5F0E8;
+    margin-bottom: 12px;
+  }
+  .collection-hero__title em { font-style: italic; }
+  .collection-hero__desc {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 13px;
+    font-weight: 300;
+    color: rgba(245, 240, 232, 0.45);
+    max-width: 400px;
+    line-height: 1.75;
+  }
+
+  /* ── Toolbar ── */
+  .collection-toolbar {
+    background: #1A1F1C;
+    border-bottom: 1px solid rgba(197, 169, 107, 0.12);
+    padding: 16px 64px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .collection-toolbar__count {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 11px;
+    color: rgba(245, 240, 232, 0.35);
+  }
+  .collection-toolbar__sort select {
+    background: transparent;
+    border: 1px solid rgba(197, 169, 107, 0.2);
+    color: #F5F0E8;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 11px;
+    padding: 8px 14px;
+    border-radius: 0;
+    cursor: pointer;
+  }
+  .collection-toolbar__sort select:focus {
+    border-color: rgba(197, 169, 107, 0.5);
+    outline: none;
+  }
+
+  /* ── Grid ── */
+  .collection-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    padding: 2px 0 96px;
+    background: #1A1F1C;
+  }
+  @media (max-width: 1024px) {
+    .collection-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 768px) {
+    .collection-grid { grid-template-columns: 1fr; }
+    .collection-toolbar { padding: 16px 24px; }
+    .collection-hero__content { left: 32px; }
+    .collection-hero__line { left: 16px; }
+    .collection-hero__title { font-size: 36px; }
+  }
+
+  /* ── Pagination ── */
+  .collection-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    padding: 0 0 64px;
+    background: #1A1F1C;
+  }
+  .collection-pagination__page {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 11px;
+    color: rgba(245, 240, 232, 0.4);
+    text-decoration: none;
+    padding: 4px 8px;
+    transition: color 0.3s;
+  }
+  .collection-pagination__page:hover { color: #F5F0E8; }
+  .collection-pagination__page--active {
+    color: #C5A96B;
+    border-bottom: 1px solid #C5A96B;
+  }
+  .collection-pagination__arrow {
+    color: #C5A96B;
+    display: flex;
+    text-decoration: none;
   }
 {% endstylesheet %}
 
 {% schema %}
 {
-  "name": "t:general.collection",
+  "name": "Aurea Collection",
   "settings": []
 }
 {% endschema %}

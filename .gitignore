@@ -12,6 +12,13 @@ node_modules/
 # Shopify CLI files
 .shopify/
 
+# Environment secrets
+.env
+
+# IDE / editor
+.vs/
+.claude/
+
 ## Release files
 release
 *.zip

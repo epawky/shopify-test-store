@@ -1,20 +1,147 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
-    "main": {
-      "type": "hello-world",
-      "settings": {}
+    "aurea-hero": {
+      "type": "aurea-hero",
+      "settings": {
+        "hero_image": "shopify://shop_images/elizapawky_no_bright_colors_no_white_backgrounds_no_product_t_5c986b43-ced7-4aee-b12d-40a00fce956a_3.png",
+        "overline": "Autumn / Winter Collection",
+        "headline": "Scent as a second skin.",
+        "body_text": "Aurea fragrances are composed from rare botanicals harvested at peak expression — for those who understand that luxury is not worn. It is felt, slowly, hours later.",
+        "primary_label": "Explore Collection",
+        "primary_link": "/collections/all",
+        "ghost_label": "Our Philosophy",
+        "ghost_link": "/pages/our-story"
+      }
+    },
+    "aurea-metrics": {
+      "type": "aurea-metrics",
+      "settings": {
+        "label_1": "Founded",
+        "value_1": "Paris, 2009",
+        "label_2": "Ingredients",
+        "value_2": "Rare & Traceable",
+        "label_3": "Approach",
+        "value_3": "Slow Perfumery",
+        "label_4": "Packaging",
+        "value_4": "Carbon Neutral"
+      }
+    },
+    "aurea-collection": {
+      "type": "aurea-collection-feature",
+      "settings": {
+        "overline": "Signature Fragrances",
+        "heading": "The Collection"
+      }
+    },
+    "aurea-story": {
+      "type": "aurea-story",
+      "settings": {
+        "story_image": "shopify://shop_images/elizapawky_a_woman_perfumer_in_her_50s_silver-streaked_dark_h_7f4a4ab4-309e-4965-8d63-a2aaac1927bc_3.png",
+        "overline": "The Maison",
+        "heading": "A different kind of house.",
+        "pull_quote": "We do not follow seasons. We follow light — the quality of it, the absence of it, and everything that grows in between.",
+        "body_1": "Aurea was founded in 2009 by perfumer Élise Morand in a small atelier near Grasse. Trained in classical French composition, she grew disillusioned with the speed of commercial fragrance — with its reliance on synthetics, its indifference to source.",
+        "body_2": "Every Aurea fragrance begins in the field. We work directly with growers in Haiti, Oman, Tasmania, and the Atlas Mountains — sourcing only what the land offers willingly, in its proper season. The result is perfume that evolves. That deepens. That rewards patience.",
+        "sig_name": "Élise Morand",
+        "sig_role": "Founder & Master Perfumer, Aurea Paris",
+        "cta_label": "Read Our Story",
+        "cta_link": "/pages/our-story"
+      }
+    },
+    "aurea-provenance": {
+      "type": "aurea-provenance",
+      "settings": {
+        "overline": "Provenance",
+        "heading": "What we source, and where."
+      },
+      "blocks": {
+        "ingredient-1": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Haitian Vetiver",
+            "origin": "Artibonite Valley, Haiti",
+            "body": "Roots hand-harvested at 18 months, steam-distilled on-site. Darker, smokier, more complex than alternatives. Our primary anchor for woody compositions."
+          }
+        },
+        "ingredient-2": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Omani Frankincense",
+            "origin": "Dhofar Region, Oman",
+            "body": "Boswellia sacra resin, wild-harvested by Bedouin families. The finest grade — milky, sacred, with a lift of citrus that lesser resins cannot offer."
+          }
+        },
+        "ingredient-3": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Atlas Cedar",
+            "origin": "Azrou Forest, Morocco",
+            "body": "Cold-pressed from sustainably managed Cedrus atlantica. Warm, dry, and pencil-shaving clean. A foundation note that carries for hours without weight."
+          }
+        },
+        "ingredient-4": {
+          "type": "ingredient",
+          "settings": {
+            "name": "Tasmanian Boronia",
+            "origin": "Huon Valley, Tasmania",
+            "body": "One of the most expensive naturals in perfumery. A singular floral-fruity note — ionone-rich, violet-adjacent, irreplaceable. Used only in our Gold series."
+          }
+        }
+      },
+      "block_order": ["ingredient-1", "ingredient-2", "ingredient-3", "ingredient-4"]
+    },
+    "aurea-testimonials": {
+      "type": "aurea-testimonials",
+      "settings": {
+        "overline": "From those who wear it",
+        "heading": "Quietly devoted."
+      },
+      "blocks": {
+        "review-1": {
+          "type": "review",
+          "settings": {
+            "text": "Vetiver No. 4 is the only fragrance I've ever repurchased without hesitation. It changes through the day — smoke in the morning, leather by dusk.",
+            "author": "Miriam A.",
+            "location": "Stockholm, Sweden"
+          }
+        },
+        "review-2": {
+          "type": "review",
+          "settings": {
+            "text": "I wore Moss & Cedar to my wedding. Three years on, it still stops me completely when I smell it on someone. That kind of power is rare.",
+            "author": "James & Saoirse K.",
+            "location": "Dublin, Ireland"
+          }
+        },
+        "review-3": {
+          "type": "review",
+          "settings": {
+            "text": "The Gold Set is the most complex thing I've ever smelled. It took three wearings to understand it, and now I cannot go without it.",
+            "author": "Naomi T.",
+            "location": "New York, USA"
+          }
+        }
+      },
+      "block_order": ["review-1", "review-2", "review-3"]
+    },
+    "aurea-newsletter": {
+      "type": "aurea-newsletter",
+      "settings": {
+        "heading": "Slow beauty takes time.",
+        "body": "Join the Aurea circle for provenance notes, limited releases, and early access to seasonal compositions. No frequency promises. Only quality ones.",
+        "placeholder": "Your email address",
+        "button_text": "Subscribe",
+        "fine_print": "We write when we have something worth saying. Unsubscribe anytime."
+      }
     }
   },
   "order": [
-    "main"
+    "aurea-hero",
+    "aurea-metrics",
+    "aurea-collection",
+    "aurea-story",
+    "aurea-provenance",
+    "aurea-testimonials",
+    "aurea-newsletter"
   ]
 }

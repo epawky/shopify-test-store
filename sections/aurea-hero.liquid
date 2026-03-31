@@ -1,0 +1,199 @@
+{%- comment -%} AUREA PARIS — Hero Section (50/50 split) {%- endcomment -%}
+
+<section class="aurea-hero full-width">
+  <div class="aurea-hero__visual">
+    {% if section.settings.hero_image != blank %}
+      <div class="aurea-hero__image-wrapper">
+        {{ section.settings.hero_image | image_url: width: 1200 | image_tag:
+          loading: 'eager',
+          fetchpriority: 'high',
+          class: 'aurea-hero__image',
+          sizes: '50vw',
+          widths: '400, 800, 1200'
+        }}
+      </div>
+    {% else %}
+      <div class="aurea-hero__image-wrapper aurea-hero__image-placeholder"></div>
+    {% endif %}
+    <div class="aurea-hero__overlay"></div>
+  </div>
+
+  <div class="aurea-hero__text">
+    <div class="aurea-hero__rule"></div>
+    <p class="aurea-hero__overline">{{ section.settings.overline }}</p>
+    <h1 class="aurea-hero__headline">{{ section.settings.headline }}</h1>
+    <p class="aurea-hero__body">{{ section.settings.body_text }}</p>
+    <div class="aurea-hero__ctas">
+      {% if section.settings.primary_label != blank %}
+        <a href="{{ section.settings.primary_link }}" class="aurea-btn aurea-btn--primary">{{ section.settings.primary_label }}</a>
+      {% endif %}
+      {% if section.settings.ghost_label != blank %}
+        <a href="{{ section.settings.ghost_link }}" class="aurea-btn aurea-btn--ghost">{{ section.settings.ghost_label }}</a>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .aurea-hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 90vh;
+  }
+
+  /* ── Visual Column ── */
+  .aurea-hero__visual {
+    position: relative;
+    background: #242B26;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .aurea-hero__image-wrapper {
+    width: 100%;
+    height: 100%;
+    animation: aurea-float 6s ease-in-out infinite;
+  }
+  .aurea-hero__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .aurea-hero__image-placeholder {
+    background: radial-gradient(circle at center, rgba(197,169,107,0.06) 0%, transparent 70%);
+  }
+  .aurea-hero__overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(26, 31, 28, 0.15);
+    pointer-events: none;
+  }
+
+  /* ── Text Column ── */
+  .aurea-hero__text {
+    background: #1A1F1C;
+    padding: 80px 72px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .aurea-hero__rule {
+    width: 40px;
+    height: 1px;
+    background: #C5A96B;
+    margin-bottom: 20px;
+  }
+  .aurea-hero__overline {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 10px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: #C5A96B;
+    margin-bottom: 20px;
+  }
+  .aurea-hero__headline {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 58px;
+    font-weight: 300;
+    line-height: 1.1;
+    color: #F5F0E8;
+    letter-spacing: 0.04em;
+    margin-bottom: 24px;
+  }
+  .aurea-hero__headline em {
+    font-style: italic;
+  }
+  .aurea-hero__body {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    color: rgba(245, 240, 232, 0.45);
+    line-height: 1.85;
+    max-width: 340px;
+    margin-bottom: 44px;
+  }
+  .aurea-hero__ctas {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  /* ── Mobile ── */
+  @media (max-width: 768px) {
+    .aurea-hero {
+      grid-template-columns: 1fr;
+      min-height: auto;
+    }
+    .aurea-hero__visual {
+      height: 50vw;
+    }
+    .aurea-hero__text {
+      padding: 48px 32px;
+    }
+    .aurea-hero__headline {
+      font-size: 40px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Aurea Hero",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero image"
+    },
+    {
+      "type": "text",
+      "id": "overline",
+      "label": "Overline",
+      "default": "Autumn / Winter Collection"
+    },
+    {
+      "type": "text",
+      "id": "headline",
+      "label": "Headline",
+      "default": "Scent as a second skin."
+    },
+    {
+      "type": "textarea",
+      "id": "body_text",
+      "label": "Body text",
+      "default": "Aurea fragrances are composed from rare botanicals harvested at peak expression — for those who understand that luxury is not worn. It is felt, slowly, hours later."
+    },
+    {
+      "type": "text",
+      "id": "primary_label",
+      "label": "Primary button label",
+      "default": "Explore Collection"
+    },
+    {
+      "type": "url",
+      "id": "primary_link",
+      "label": "Primary button link",
+      "default": "/collections/all"
+    },
+    {
+      "type": "text",
+      "id": "ghost_label",
+      "label": "Secondary button label",
+      "default": "Our Philosophy"
+    },
+    {
+      "type": "url",
+      "id": "ghost_link",
+      "label": "Secondary button link",
+      "default": "/pages/our-story"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Aurea Hero"
+    }
+  ]
+}
+{% endschema %}
