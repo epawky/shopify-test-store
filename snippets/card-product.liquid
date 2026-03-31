@@ -5,7 +5,11 @@
 {%- endcomment -%}
 
 {% liquid
-  assign loading_strategy = eager | default: false
+  if eager
+    assign load_attr = 'eager'
+  else
+    assign load_attr = 'lazy'
+  endif
   assign card_class = 'product-card'
   if product.type == 'Moss & Cedar'
     assign card_class = card_class | append: ' card--sage'
@@ -17,7 +21,7 @@
     <div class="product-card__media">
       {% if product.featured_image %}
         {{ product.featured_image | image_url: width: 800 | image_tag:
-          loading: loading_strategy | ternary: 'eager', 'lazy',
+          loading: load_attr,
           class: 'product-card__image',
           sizes: '(min-width: 768px) 33vw, 100vw',
           widths: '400, 800, 1200'

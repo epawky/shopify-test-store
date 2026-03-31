@@ -30,7 +30,8 @@
       "type": "aurea-collection-feature",
       "settings": {
         "overline": "Signature Fragrances",
-        "heading": "The Collection"
+        "heading": "The Collection",
+        "collection": "all"
       }
     },
     "aurea-story": {
