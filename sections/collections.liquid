@@ -27,6 +27,15 @@
         </div>
       </div>
       <div class="collections-card__info">
+        <p class="collections-card__type">
+          {%- case collection.handle -%}
+            {%- when 'all' or 'new-arrivals' -%}Fragrances
+            {%- when 'discovery-sets' -%}Discovery & Sets
+            {%- when 'home-candles' -%}Home
+            {%- when 'body-care' -%}Body Care
+            {%- else -%}Collection
+          {%- endcase -%}
+        </p>
         <h2 class="collections-card__title">{{ collection.title }}</h2>
         {% if collection.description != blank %}
           <p class="collections-card__desc">{{ collection.description | strip_html | truncatewords: 20 }}</p>
@@ -145,6 +154,15 @@
   .collections-card__info {
     padding: 20px 22px 24px;
     border-top: 1px solid rgba(197, 169, 107, 0.12);
+  }
+  .collections-card__type {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 9px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: #7B9E87;
+    margin-bottom: 6px;
   }
   .collections-card__title {
     font-family: 'Cormorant Garamond', Georgia, serif;
