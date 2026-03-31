@@ -1,83 +1,190 @@
-{% comment %}
-  This section is used in the list-collections template to render a list of
-  collections.
+{%- comment -%} AUREA PARIS — Collections List Page {%- endcomment -%}
 
-  https://shopify.dev/docs/storefronts/themes/architecture/templates/collection
-{% endcomment %}
+<div class="collections-hero full-width">
+  <div class="collections-hero__line"></div>
+  <div class="collections-hero__content">
+    <p class="collections-hero__overline">Aurea Paris</p>
+    <h1 class="collections-hero__title"><em>Collections</em></h1>
+  </div>
+</div>
 
-<h1>{{ 'collections.title' | t }}</h1>
-
-<div
-  class="collections {{ section.settings.grid_item_width }}"
-  style="--grid-gap: {{ section.settings.grid_gap }}px"
->
+<div class="collections-grid full-width">
   {% for collection in collections %}
-    <a class="collection-card" href="{{ collection.url }}">
-      {% if collection.featured_image %}
-        {% render 'image',
-          class: 'collection-card__image',
-          image: collection.featured_image,
-          width: 600,
-          height: 600,
-          crop: 'center'
-        %}
-      {% endif %}
-
-      <div class="collection-card__content">
-        <p>{{ collection.title }}</p>
-
-        {% if collection.description %}
-          <p>{{ collection.description | strip_html | truncatewords: 15 }}</p>
+    <a class="collections-card" href="{{ collection.url }}">
+      <div class="collections-card__media">
+        {% if collection.featured_image %}
+          {{ collection.featured_image | image_url: width: 800 | image_tag:
+            loading: 'lazy',
+            class: 'collections-card__image',
+            sizes: '(min-width: 768px) 33vw, 100vw',
+            widths: '400, 600, 800'
+          }}
+        {% else %}
+          <div class="collections-card__placeholder"></div>
         {% endif %}
+        <div class="collections-card__overlay">
+          <span class="collections-card__cta">View Collection</span>
+        </div>
+      </div>
+      <div class="collections-card__info">
+        <h2 class="collections-card__title">{{ collection.title }}</h2>
+        {% if collection.description != blank %}
+          <p class="collections-card__desc">{{ collection.description | strip_html | truncatewords: 20 }}</p>
+        {% endif %}
+        <span class="collections-card__count">{{ collection.products_count }} {{ collection.products_count | pluralize: 'product', 'products' }}</span>
       </div>
     </a>
   {% endfor %}
 </div>
 
 {% stylesheet %}
-  .collections {
+  /* ── Collections Hero ── */
+  .collections-hero {
+    position: relative;
+    height: 260px;
+    background: #242B26;
+    overflow: hidden;
+  }
+  .collections-hero__line {
+    position: absolute;
+    left: 48px;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: rgba(197, 169, 107, 0.35);
+  }
+  .collections-hero__content {
+    position: absolute;
+    left: 80px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  .collections-hero__overline {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 10px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: #C5A96B;
+    margin-bottom: 12px;
+  }
+  .collections-hero__title {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 52px;
+    font-weight: 300;
+    color: #F5F0E8;
+  }
+  .collections-hero__title em { font-style: italic; }
+
+  /* ── Grid ── */
+  .collections-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(var(--collection-card-size), 100%), 1fr));
-    gap: var(--grid-gap);
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    padding: 2px 0 96px;
+    background: #1A1F1C;
   }
-  .collections--compact {
-    --collection-card-size: 160px;
+
+  /* ── Card ── */
+  .collections-card {
+    background: #242B26;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    overflow: hidden;
+    transition: background 0.3s ease;
   }
-  .collections--full {
-    --collection-card-size: 280px;
+  .collections-card:hover { background: #2a3229; }
+
+  .collections-card__media {
+    aspect-ratio: 3/4;
+    background: #2C3530;
+    overflow: hidden;
+    position: relative;
   }
-  .collection-card {
-    display: flex;
-    flex-direction: column;
+  .collections-card__image {
     width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.7s ease;
+  }
+  .collections-card:hover .collections-card__image {
+    transform: scale(1.03);
+  }
+  .collections-card__placeholder {
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, rgba(197,169,107,0.06) 0%, transparent 70%);
+  }
+  .collections-card__overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 4;
+    background: #C5A96B;
+    color: #111714;
+    text-align: center;
+    padding: 13px;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+  }
+  .collections-card:hover .collections-card__overlay,
+  .collections-card:focus-within .collections-card__overlay {
+    transform: translateY(0);
+  }
+  .collections-card__cta {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 9px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+  }
+
+  /* ── Info ── */
+  .collections-card__info {
+    padding: 20px 22px 24px;
+    border-top: 1px solid rgba(197, 169, 107, 0.12);
+  }
+  .collections-card__title {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 22px;
+    font-weight: 300;
+    color: #F5F0E8;
+    margin-bottom: 8px;
+  }
+  .collections-card__desc {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 13px;
+    font-style: italic;
+    font-weight: 300;
+    color: rgba(245, 240, 232, 0.45);
+    line-height: 1.6;
+    margin-bottom: 14px;
+  }
+  .collections-card__count {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 10px;
+    color: rgba(245, 240, 232, 0.35);
+    letter-spacing: 0.1em;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 1024px) {
+    .collections-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 768px) {
+    .collections-grid { grid-template-columns: 1fr; }
+    .collections-hero__content { left: 32px; }
+    .collections-hero__line { left: 16px; }
+    .collections-hero__title { font-size: 36px; }
   }
 {% endstylesheet %}
 
 {% schema %}
 {
-  "name": "t:general.collections_grid",
-  "settings": [
-    {
-      "type": "select",
-      "id": "grid_item_width",
-      "label": "t:labels.grid_item_width",
-      "options": [
-        { "value": "collections--compact", "label": "t:options.size.small" },
-        { "value": "collections--full", "label": "t:options.size.large" }
-      ],
-      "default": "collections--full"
-    },
-    {
-      "type": "range",
-      "id": "grid_gap",
-      "label": "t:labels.grid_gap",
-      "min": 0,
-      "max": 50,
-      "step": 5,
-      "unit": "px",
-      "default": 10
-    }
-  ],
-  "presets": [{ "name": "t:general.collections_grid" }]
+  "name": "Aurea Collections",
+  "settings": [],
+  "presets": [{ "name": "Aurea Collections" }]
 }
 {% endschema %}
